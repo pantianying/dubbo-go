@@ -54,7 +54,7 @@ func (l *RegistryDataListener) DataChange(eventType remoting.Event) bool {
 	url := eventType.Path[index+len("/providers/"):]
 	serviceURL, err := common.NewURL(context.TODO(), url)
 	if err != nil {
-		logger.Errorf("Listen NewURL(r{%s}) = error{%v} event={%v}", url, err, eventType.Path)
+		logger.Errorf("Listen NewURL(r{%s}) = error{%v} eventType.Path={%v}", url, err, eventType.Path)
 		return false
 	}
 	for _, v := range l.interestedURL {

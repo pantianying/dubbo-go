@@ -1,4 +1,4 @@
-application_config:
+application:
   organization : "ikurento.com"
   name  : "BDTService"
   module : "dubbogo user-info client"
@@ -21,7 +21,7 @@ references:
     cluster: "failover"
     methods :
       - name: "SayHello"
-        retries: 3
+        retries: "3"
 
 protocol_conf:
   dubbo:

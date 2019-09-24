@@ -136,6 +136,7 @@ func (dir *registryDirectory) refreshInvokers(res *registry.ServiceEvent) {
 			return
 		}
 	}
+
 	newInvokers := dir.toGroupInvokers()
 	dir.listenerLock.Lock()
 	defer dir.listenerLock.Unlock()

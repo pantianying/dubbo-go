@@ -29,6 +29,7 @@ import (
 )
 
 import (
+	gxnet "github.com/dubbogo/gost/net"
 	perrors "github.com/pkg/errors"
 	"github.com/samuel/go-zookeeper/zk"
 )
@@ -38,7 +39,6 @@ import (
 	"github.com/apache/dubbo-go/common/constant"
 	"github.com/apache/dubbo-go/common/extension"
 	"github.com/apache/dubbo-go/common/logger"
-	"github.com/apache/dubbo-go/common/utils"
 	"github.com/apache/dubbo-go/registry"
 	"github.com/apache/dubbo-go/remoting/zookeeper"
 )
@@ -55,7 +55,7 @@ var (
 
 func init() {
 	processID = fmt.Sprintf("%d", os.Getpid())
-	localIP, _ = utils.GetLocalIP()
+	localIP, _ = gxnet.GetLocalIP()
 	//plugins.PluggableRegistries["zookeeper"] = newZkRegistry
 	extension.SetRegistry("zookeeper", newZkRegistry)
 }
@@ -147,6 +147,7 @@ func newMockZkRegistry(url *common.URL, opts ...zookeeper.Option) (*zk.TestClust
 
 	return c, r, nil
 }
+
 func (r *zkRegistry) ZkClient() *zookeeper.ZookeeperClient {
 	return r.client
 }
@@ -399,7 +400,7 @@ func (r *zkRegistry) subscribe(conf *common.URL) (registry.Listener, error) {
 	return r.getListener(conf)
 }
 
-//subscibe from registry
+//subscribe from registry
 func (r *zkRegistry) Subscribe(url *common.URL, notifyListener registry.NotifyListener) {
 	for {
 		if !r.IsAvailable() {
@@ -432,6 +433,7 @@ func (r *zkRegistry) Subscribe(url *common.URL, notifyListener registry.NotifyLi
 
 	}
 }
+
 func (r *zkRegistry) getListener(conf *common.URL) (*RegistryConfigurationListener, error) {
 	var (
 		zkListener *RegistryConfigurationListener

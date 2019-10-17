@@ -33,14 +33,14 @@ Apache License, Version 2.0
 - 动态配置中心与服务治理配置器（config center）: Zookeeper
 - 集群策略: Failover/[Failfast](https://github.com/apache/dubbo-go/pull/140)/[Failsafe/Failback](https://github.com/apache/dubbo-go/pull/136)/[Available](https://github.com/apache/dubbo-go/pull/155)/[Broadcast](https://github.com/apache/dubbo-go/pull/158)/[Forking](https://github.com/apache/dubbo-go/pull/161)
 - 负载均衡策略: Random/[RoundRobin](https://github.com/apache/dubbo-go/pull/66)/[LeastActive](https://github.com/apache/dubbo-go/pull/65)
-- 过滤器: Echo Health Check/[服务熔断&降级](https://github.com/apache/dubbo-go/pull/133)/[TokenFilter](https://github.com/apache/dubbo-go/pull/202)
+- 过滤器: Echo Health Check/[服务熔断&降级](https://github.com/apache/dubbo-go/pull/133)/[TokenFilter](https://github.com/apache/dubbo-go/pull/202)/[AccessLogFilter](https://github.com/apache/dubbo-go/pull/214)
 - 其他功能支持: [泛化调用](https://github.com/apache/dubbo-go/pull/122)/启动时检查/服务直连/多服务协议/多注册中心/多服务版本/服务分组
 
 开发中列表:
 
 - 集群策略: Forking
 - 负载均衡策略: ConsistentHash
-- 过滤器: AccessLogFilter/CountFilter/ExecuteLimitFilter/TpsLimitFilter
+- 过滤器: CountFilter/ExecuteLimitFilter/TpsLimitFilter
 - 注册中心: k8s
 - 配置中心: apollo
 - 元数据中心 (dubbo v2.7.x)
@@ -60,28 +60,39 @@ TODO
 
 ## 快速开始 ##
 
-这个子目录下的例子展示了如何使用 dubbo-go 。请仔细阅读 [examples/README.md](https://github.com/apache/dubbo-go/blob/develop/examples/README.md) 学习如何处理配置并编译程序。
+[dubbogo-samples](https://github.com/dubbogo/dubbogo-samples)这个项目的事例展示了如何使用 dubbo-go 。请仔细阅读 [dubbogo-samples/README.md](https://github.com/dubbogo/dubbogo-samples/blob/master/README.md) 学习如何处理配置并编译程序。
 
 ## 运行单测
 
+### 准备
+
+Mac/Linux
 ```bash
 sh ./before_ut.sh
+```
 
+Windows
+```bash
+before_ut.bat
+```
+
+# 执行
+```bash
 go test ./...
 
-# 覆盖率
+# coverage
 go test ./... -coverprofile=coverage.txt -covermode=atomic
 ```
 
 ## 如何贡献
 
-如果您愿意给 [Apache/dubbo-go](https://github.com/apache/dubbo-go) 贡献代码或者文档，我们都热烈欢迎。具体请参考 [contribution intro](https://github.com/apache/dubbo-go/blob/master/cg.md)。
+如果您愿意给 [Apache/dubbo-go](https://github.com/apache/dubbo-go) 贡献代码或者文档，我们都热烈欢迎。具体请参考 [contribution intro](https://github.com/apache/dubbo-go/blob/master/contributing.md)。
 
 ## 性能测试 ##
 
-性能测试项目是 [go-for-apache-dubbo-benchmark](https://github.com/dubbogo/go-for-apache-dubbo-benchmark)
+性能测试项目是 [dubbo-go-benchmark](https://github.com/dubbogo/dubbo-go-benchmark)。
 
-关于 dubbo-go 性能测试报告，请阅读 [dubbo benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-dubbo) & [jsonrpc benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-jsonrpc)
+关于 dubbo-go 性能测试报告，请阅读 [dubbo benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-dubbo) & [jsonrpc benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-jsonrpc)。
 
 ## [User List](https://github.com/apache/dubbo-go/issues/2)
 

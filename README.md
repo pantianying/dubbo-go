@@ -34,13 +34,13 @@ Finished List:
 - Dynamic Configure Center & Service Management Configurator: Zookeeper
 - Cluster Strategy: Failover/[Failfast](https://github.com/apache/dubbo-go/pull/140)/[Failsafe/Failback](https://github.com/apache/dubbo-go/pull/136)/[Available](https://github.com/apache/dubbo-go/pull/155)/[Broadcast](https://github.com/apache/dubbo-go/pull/158)/[Forking](https://github.com/apache/dubbo-go/pull/161)
 - Load Balance: Random/[RoundRobin](https://github.com/apache/dubbo-go/pull/66)/[LeastActive](https://github.com/apache/dubbo-go/pull/65)
-- Filter: Echo Health Check/[Circuit break and service downgrade](https://github.com/apache/dubbo-go/pull/133)/[TokenFilter](https://github.com/apache/dubbo-go/pull/202)
+- Filter: Echo Health Check/[Circuit break and service downgrade](https://github.com/apache/dubbo-go/pull/133)/[TokenFilter](https://github.com/apache/dubbo-go/pull/202)/[AccessLogFilter](https://github.com/apache/dubbo-go/pull/214)
 - Other feature: [generic invoke](https://github.com/apache/dubbo-go/pull/122)/start check/connecting certain provider/multi-protocols/multi-registries/multi-versions/service group
 
 Working List:
 
 - Load Balance: ConsistentHash
-- Filter: AccessLogFilter/CountFilter/ExecuteLimitFilter/TpsLimitFilter
+- Filter: CountFilter/ExecuteLimitFilter/TpsLimitFilter
 - Registry: k8s
 - Configure Center: apollo
 - Metadata Center (dubbo v2.7.x)
@@ -60,13 +60,24 @@ TODO
 
 ## Quick Start
 
-The subdirectory examples shows how to use dubbo-go. Please read the [examples/README.md](https://github.com/apache/dubbo-go/blob/develop/examples/README.md) carefully to learn how to dispose the configuration and compile the program.
+[dubbogo-samples](https://github.com/dubbogo/dubbogo-samples) shows how to use dubbo-go. Please read the [dubbogo-samples/README.md](https://github.com/dubbogo/dubbogo-samples/blob/master/README.md) carefully to learn how to dispose the configuration and compile the program.
 
 ## Running unit tests
 
+### Prepare
+
+Mac/Linux
 ```bash
 sh ./before_ut.sh
+```
 
+Windows
+```bash
+before_ut.bat
+```
+
+# Run
+```bash
 go test ./...
 
 # coverage
@@ -75,20 +86,23 @@ go test ./... -coverprofile=coverage.txt -covermode=atomic
 
 ## Contributing
 
-If you are willing to do some code contributions and document contributions to [Apache/dubbo-go](https://github.com/apache/dubbo-go), please visit [contribution intro](https://github.com/apache/dubbo-go/blob/master/cg.md).
+If you are willing to do some code contributions and document contributions to [Apache/dubbo-go](https://github.com/apache/dubbo-go), please visit [contribution intro](https://github.com/apache/dubbo-go/blob/master/contributing.md).
 
 ## Benchmark
 
-Benchmark project please refer to [go-for-apache-dubbo-benchmark](https://github.com/dubbogo/go-for-apache-dubbo-benchmark)
+Benchmark project [dubbo-go-benchmark](https://github.com/dubbogo/dubbo-go-benchmark).
 
-About dubbo-go benchmarking report, please refer to [dubbo benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-dubbo) & [jsonrpc benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-jsonrpc)
+About dubbo-go benchmarking report, please refer to [dubbo benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-dubbo) & [jsonrpc benchmarking report](https://github.com/apache/dubbo-go/wiki/pressure-test-report-for-jsonrpc).
 
 ## [User List](https://github.com/apache/dubbo-go/issues/2)
 
 If you are using [apache/dubbo-go](github.com/apache/dubbo-go) and think that it helps you or want do some contributions to it, please add your company to to [the user list](https://github.com/apache/dubbo-go/issues/2) to let us know your needs.
 
-![ctrip](https://pic.c-ctrip.com/common/c_logo2013.png)
+
+![ctrip](https://pic.c-ctrip.com/common/c_logo2013.png)![Excellent Health Technology Group](https://raw.githubusercontent.com/dajiiu/photo/static/mirror/haozhuo_logo.png)
+![ctrip](https://raw.githubusercontent.com/pantianying/go-tool/master/picture/logo_2-removebg-preview.png)
 
 ## Stargazers
 
 [![Stargazers over time](https://starchart.cc/apache/dubbo-go.svg)](https://starchart.cc/apache/dubbo-go)
+

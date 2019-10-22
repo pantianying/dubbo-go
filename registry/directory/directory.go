@@ -122,13 +122,13 @@ func (dir *registryDirectory) refreshInvokers(res *registry.ServiceEvent) {
 		}
 		switch res.Action {
 		case remoting.EventTypeAdd, remoting.EventTypeUpdate:
-			logger.Warnf("selector add service url{%s}", res.Service)
+			logger.Errorf("selector add service url{%s}", res.Service)
 			//dir.cacheService.EventTypeAdd(res.Path, dir.serviceTTL)
 			dir.cacheInvoker(url)
 		case remoting.EventTypeDel:
 			//dir.cacheService.EventTypeDel(res.Path, dir.serviceTTL)
 			dir.uncacheInvoker(url)
-			logger.Warnf("selector delete service url{%s}", res.Service)
+			logger.Errorf("selector delete service url{%s}", res.Service)
 		default:
 			return
 		}

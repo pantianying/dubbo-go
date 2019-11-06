@@ -18,7 +18,6 @@
 package cluster_impl
 
 import (
-	"fmt"
 	"strconv"
 	"sync"
 )
@@ -116,15 +115,8 @@ func isRetry(err error, provider string) bool {
 	switch err {
 	//case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientReadTimeout, common.ErrClientCreateConnTimeout:
 	case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientCreateConnTimeout:
-		if err == common.ErrClientCreateConnTimeout {
-			tempPantyLock.Lock()
-			tempPantyMap[provider]++
-			fmt.Println("panty code is ready", tempPantyMap[provider])
-			tempPantyLock.Unlock()
-		}
 		return true
 	default:
-		fmt.Println("panty code is ready 业务异常 不重试")
 		return false
 	}
 }

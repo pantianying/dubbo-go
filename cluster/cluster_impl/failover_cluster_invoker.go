@@ -18,7 +18,9 @@
 package cluster_impl
 
 import (
+	"fmt"
 	"strconv"
+	"sync"
 )
 
 import (
@@ -97,7 +99,7 @@ func (invoker *failoverClusterInvoker) Invoke(invocation protocol.Invocation) pr
 		invoked = append(invoked, ivk)
 		//DO INVOKE
 		result = ivk.Invoke(invocation)
-		if result.Error() != nil && isRetry(result.Error()) {
+		if result.Error() != nil && isRetry(result.Error(), ivk.GetUrl().Key()) {
 			providers = append(providers, ivk.GetUrl().Key())
 			continue
 		} else {
@@ -110,11 +112,25 @@ func (invoker *failoverClusterInvoker) Invoke(invocation protocol.Invocation) pr
 		methodName, invoker.GetUrl().Service(), retries, providers, len(providers), len(invokers), invoker.directory.GetUrl(), ip, constant.Version, result.Error().Error(),
 	)}
 }
-func isRetry(err error) bool {
+func isRetry(err error, provider string) bool {
 	switch err {
-	case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientReadTimeout, common.ErrClientCreateConnTimeout:
+	//case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientReadTimeout, common.ErrClientCreateConnTimeout:
+	case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientCreateConnTimeout:
+		if err == common.ErrClientCreateConnTimeout {
+			tempPantyLock.Lock()
+			tempPantyMap[provider]++
+			fmt.Println("panty code is ready", tempPantyMap[provider])
+			tempPantyLock.Unlock()
+		}
 		return true
 	default:
+		fmt.Println("panty code is ready 业务异常 不重试")
 		return false
 	}
 }
+
+var (
+	//超时的provider 如果超时超过三次则不予选中
+	tempPantyMap  = make(map[string]int)
+	tempPantyLock sync.RWMutex
+)

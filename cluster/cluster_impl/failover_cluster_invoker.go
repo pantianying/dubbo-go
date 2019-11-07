@@ -113,7 +113,6 @@ func (invoker *failoverClusterInvoker) Invoke(invocation protocol.Invocation) pr
 }
 func isRetry(err error, provider string) bool {
 	switch err {
-	//case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientReadTimeout, common.ErrClientCreateConnTimeout:
 	case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientCreateConnTimeout:
 		return true
 	default:

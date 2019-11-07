@@ -83,7 +83,7 @@ func (l *ZkEventListener) ListenServiceNodeEvent(zkPath string, listener ...remo
 			case zk.EventNotWatching:
 				logger.Warnf("zk.ExistW(key{%s}) = event{EventNotWatching}", zkPath)
 			case zk.EventNodeDeleted:
-				logger.Warnf("zk.ExistW(key{%s}) = event{EventNodeDeleted}", zkPath)
+				logger.Errorf("zk.ExistW(key{%s}) = event{EventNodeDeleted}", zkPath)
 				return true
 			}
 		case <-l.client.Done():

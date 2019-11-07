@@ -385,9 +385,9 @@ func (r *zkRegistry) registerTempZookeeperNode(root string, node string) error {
 	zkPath, err = r.client.RegisterTemp(root, node)
 	if err != nil {
 		if err == zk.ErrNodeExists {
-			logger.Warnf("RegisterTempNode(root{%s}, node{%s}) = error{%v}", root, node, perrors.WithStack(err))
+			logger.Infof("RegisterTempNode(root{%s}, node{%s}) = error{%v}", root, node, perrors.WithStack(err))
 		} else {
-			logger.Warnf("RegisterTempNode(root{%s}, node{%s}) = error{%v}", root, node, perrors.WithStack(err))
+			logger.Infof("RegisterTempNode(root{%s}, node{%s}) = error{%v}", root, node, perrors.WithStack(err))
 		}
 		return perrors.WithMessagef(err, "RegisterTempNode(root{%s}, node{%s})", root, node)
 	}

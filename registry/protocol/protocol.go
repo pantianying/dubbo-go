@@ -116,7 +116,7 @@ func (proto *registryProtocol) Refer(url common.URL) protocol.Invoker {
 	}
 	err = reg.Register(*serviceUrl)
 	if err != nil {
-		logger.Errorf("consumer service %v register registry %v error, error message is %s",
+		logger.Warnf("consumer service %v register registry %v error, error message is %s",
 			serviceUrl.String(), registryUrl.String(), err.Error())
 	}
 	go directory.Subscribe(serviceUrl)

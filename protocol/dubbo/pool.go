@@ -75,8 +75,7 @@ func newGettyRPCClientConn(pool *gettyRPCClientPool, protocol, addr string) (*ge
 
 		if idx > times {
 			c.gettyClient.Close()
-			logger.Errorf("failed to create client connection to %s in %f seconds", addr, float32(times)/1000)
-			return nil, common.ErrClientCreateConnTimeout
+			return nil, perrors.New(fmt.Sprintf("failed to create client connection to %s in %f seconds", addr, float32(times)/1000))
 		}
 		time.Sleep(1e6)
 	}

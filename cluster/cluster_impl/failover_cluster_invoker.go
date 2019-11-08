@@ -19,6 +19,7 @@ package cluster_impl
 
 import (
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -116,6 +117,10 @@ func isRetry(err error, provider string) bool {
 	case common.ErrInvalidAddress, common.ErrSessionNotExist, common.ErrClientCreateConnTimeout:
 		return true
 	default:
+		if strings.Contains(err.Error(), "failed to create client connection") {
+			logger.Warn("触发重试", err.Error())
+			return true
+		}
 		return false
 	}
 }

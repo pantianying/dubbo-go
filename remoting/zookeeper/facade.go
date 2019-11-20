@@ -72,6 +72,7 @@ LOOP:
 					break LOOP
 				case <-getty.GetTimeWheel().After(timeSecondDuration(failTimes * ConnDelay)): // Prevent crazy reconnection zk.
 				}
+				logger.Warnf("zk Client try to restart url({%s})", r.GetUrl())
 				err = ValidateZookeeperClient(r, WithZkName(zkName))
 				logger.Infof("ZkProviderRegistry.validateZookeeperClient(zkAddr{%s}) = error{%#v}",
 					zkAddress, perrors.WithStack(err))

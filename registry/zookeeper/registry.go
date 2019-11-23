@@ -406,7 +406,9 @@ func (r *zkRegistry) subscribe(conf *common.URL) (registry.Listener, error) {
 
 //subscribe from registry
 func (r *zkRegistry) Subscribe(url *common.URL, notifyListener registry.NotifyListener) {
+	n := 0
 	for {
+		n++
 		if !r.IsAvailable() {
 			logger.Warnf("event listener game over.")
 			return
@@ -422,14 +424,13 @@ func (r *zkRegistry) Subscribe(url *common.URL, notifyListener registry.NotifyLi
 			time.Sleep(time.Duration(RegistryConnDelay) * time.Second)
 			continue
 		}
-
-		for {
+		for i := 0; ; i++ {
 			if serviceEvent, err := listener.Next(); err != nil {
 				logger.Warnf("Selector.watch() = error{%v}", perrors.WithStack(err))
-				if err.Error() == "listener stopped" {
+				if i == 0 {
+					listener.Close()
 					break
 				}
-				listener.Close()
 				break
 			} else {
 				logger.Infof("update begin, service event: %v", serviceEvent.String())
@@ -437,8 +438,8 @@ func (r *zkRegistry) Subscribe(url *common.URL, notifyListener registry.NotifyLi
 			}
 
 		}
-		time.Sleep(1e9)
-
+		logger.Infof("wait for get subscribe listener, key{%v}", url.Key())
+		sleepWait(n)
 	}
 }
 
@@ -492,4 +493,11 @@ func (r *zkRegistry) IsAvailable() bool {
 	default:
 		return true
 	}
+}
+func sleepWait(n int) {
+	wait := time.Duration(200*n) * time.Millisecond
+	if wait > 3*time.Second {
+		wait = 3 * time.Second
+	}
+	time.Sleep(wait)
 }
